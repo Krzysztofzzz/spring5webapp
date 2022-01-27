@@ -28,6 +28,10 @@ public class BootStrapData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        Publisher publisherx = new Publisher("Kruk", "Warminska 18", "Białystok", "New York", "15-2342");
+        Publisher publishery = new Publisher("Biały Kruk", "Slonimska 99", "Bydgoszcz", "Alaska", "13-24545");
+
+
         Author eric = new Author("Eric", "Evans");
         Book ddd = new Book("Domain Driven Design", "123123");
         eric.getBooks().add(ddd);
@@ -47,17 +51,17 @@ public class BootStrapData implements CommandLineRunner {
         System.out.println("Started in Bootstrap");
         System.out.println("Number of Books: " + bookRepository.count());
 
-        Publisher publisherx = new Publisher("Kruk", "Warminska 18", "Białystok", "New York", "15-2342");
-        Publisher publishery = new Publisher("Biały Kruk", "Slonimska 99", "Bydgoszcz", "Alaska", "13-24545");
-        publisherRepository.save(publisherx);
-        publisherRepository.save(publishery);
 
-        System.out.println("Number of Publishers: " + publisherRepository.count());
 
         ddd.setPublisher(publisherx);
         noEJB.setPublisher(publisherx);
         publisherx.getBooks().add(ddd);
         publisherx.getBooks().add(noEJB);
+
+        publisherRepository.save(publisherx);
+        publisherRepository.save(publishery);
+
+        System.out.println("Number of Publishers: " + publisherRepository.count());
 
         System.out.println("PublisherX number of books: " + publisherx.getBooks().size());
         System.out.println("PublisherY number of books: " + publishery.getBooks().size());
